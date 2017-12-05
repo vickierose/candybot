@@ -4,7 +4,7 @@ class CandyBot extends Bot {
   constructor (params) {
     super(params);
     this.params = params;
-    this.params.name = params.name || 'candybot'
+    this.params.name = params.name || 'candybot';
 
     this.user = null;
     this.otherParams = {
@@ -14,11 +14,11 @@ class CandyBot extends Bot {
   }
 
   run () {
-    this.on('start', this.onStart)
+    this.on('start', this.onStart);
   }
 
   onStart () {
-    this.postMessageToChannel('general', 'Hi, sweethearts!', this.otherParams)
+    this.postMessageToChannel('general', 'Hi, sweethearts!', this.otherParams);
   }
 }
 
