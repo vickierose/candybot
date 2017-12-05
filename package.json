@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/vickierose/candybot#readme",
   "dependencies": {
+    "dotenv": "^4.0.0",
     "slackbots": "^1.1.0"
   }
 }

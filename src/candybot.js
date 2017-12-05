@@ -1,12 +1,25 @@
 const Bot = require('slackbots');
-const options = require('../private-config')
 
-const candyBot = new Bot(options);
+class CandyBot extends Bot {
+  constructor (params) {
+    super(params);
+    this.params = params;
+    this.params.name = params.name || 'candybot'
 
-candyBot.on('start', () => {
-  const params = {
-    icon_url: 'http://res.cloudinary.com/dfmb0wsun/image/upload/v1511885082/candygirl_msrc4a.jpg',
-    as_user: false
+    this.user = null;
+    this.otherParams = {
+      icon_url: process.env.BOT_AVATAR,
+      as_user: false
+    };
   }
-  candyBot.postMessageToChannel('general', 'Hi, sweethearts!', params)
-})
+
+  run () {
+    this.on('start', this.onStart)
+  }
+
+  onStart () {
+    this.postMessageToChannel('general', 'Hi, sweethearts!', this.otherParams)
+  }
+}
+
+module.exports = CandyBot;
