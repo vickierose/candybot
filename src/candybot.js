@@ -8,17 +8,33 @@ class CandyBot extends Bot {
 
     this.user = null;
     this.otherParams = {
-      icon_url: process.env.BOT_AVATAR,
-      as_user: false
+      as_user: true
     };
   }
 
   run () {
     this.on('start', this.onStart);
+    this.on('message', this.onMessage);
   }
 
   onStart () {
-    this.postMessageToChannel('general', 'Hi, sweethearts!', this.otherParams);
+    this.loadBotUser();
+    this.postMessageToChannel(this.channels[0].name, 'Hi, sweethearts! Do you wanna know your heroic candy for today? Then ask me!', this.otherParams);
+  }
+
+  loadBotUser () {
+    this.user = this.users.filter(user =>
+      user.name === this.name
+    )[0];
+  }
+
+  onMessage (msg) {
+    if (msg.text) {
+      const msgText = msg.text.toLowerCase();
+      if (msgText.indexOf(this.name) > -1) {
+        this.postMessageToChannel(this.channels[0].name, 'Your heroic candy today is Rafaello!', this.otherParams);
+      }
+    }
   }
 }
 
