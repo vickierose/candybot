@@ -32,9 +32,13 @@ class CandyBot extends Bot {
     if (msg.text) {
       const msgText = msg.text.toLowerCase();
       if (msgText.indexOf(this.name) > -1) {
-        this.postMessageToChannel(this.channels[0].name, 'Your heroic candy today is Rafaello!', this.otherParams);
+        this.postMessageToChannel(this.getChannelNameById(msg.channel), 'Your heroic candy today is Rafaello!', this.otherParams);
       }
     }
+  }
+
+  getChannelNameById (channelId) {
+    return this.channels.find(channel => channel.id === channelId).name;
   }
 }
 
