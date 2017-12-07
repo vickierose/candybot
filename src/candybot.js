@@ -1,4 +1,5 @@
 const Bot = require('slackbots');
+const helpers = require('./helpers');
 
 class CandyBot extends Bot {
   constructor (params) {
@@ -29,16 +30,24 @@ class CandyBot extends Bot {
   }
 
   onMessage (msg) {
-    if (msg.text) {
+    if (
+      helpers.checkIfHasText(msg) &&
+      helpers.checkIfNotFromBot(msg, this.user.id)
+    ) {
       const msgText = msg.text.toLowerCase();
-      if (msgText.indexOf(this.name) > -1) {
-        this.postMessageToChannel(this.getChannelNameById(msg.channel), 'Your heroic candy today is Rafaello!', this.otherParams);
+
+      if(helpers.checkIfBotMentioned(msgText, this.user.id, this.name)){
+        this.sendHeroicCandy(msg);
       }
     }
   }
 
   getChannelNameById (channelId) {
     return this.channels.find(channel => channel.id === channelId).name;
+  }
+
+  sendHeroicCandy (msg) {
+    this.postMessageToChannel(this.getChannelNameById(msg.channel), 'Your heroic candy today is Rafaello!', this.otherParams);
   }
 }
 
