@@ -1,5 +1,6 @@
 const Bot = require('slackbots');
 const helpers = require('./helpers');
+const candies = require('./candies');
 
 class CandyBot extends Bot {
   constructor (params) {
@@ -47,7 +48,8 @@ class CandyBot extends Bot {
   }
 
   sendHeroicCandy (msg) {
-    this.postMessageToChannel(this.getChannelNameById(msg.channel), 'Your heroic candy today is Rafaello!', this.otherParams);
+    const heroicCandy = helpers.pickHeroicCandy(candies);
+    this.postMessageToChannel(this.getChannelNameById(msg.channel), `Your heroic candy today is "${heroicCandy}"!`, this.otherParams);
   }
 }
 
